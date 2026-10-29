@@ -1,0 +1,21 @@
+# Pre-installed apps that are safe to disable on Motorola phones (tested on moto g30, Android 12).
+# Disabled, not uninstalled: re-enable any of them with `tune -Undo` or `adb shell pm enable <package>`.
+# Not listed on purpose: OTA updates (com.motorola.ccc.*), Moto gestures, Moto Display.
+
+# Facebook background services
+com.facebook.services
+com.facebook.system
+com.facebook.appmanager
+
+# Moto extras
+com.motorola.demo
+com.motorola.genie
+com.motorola.mototour
+com.motorola.motocare
+com.motorola.help
+com.motorola.help.extlog
+
+# Google extras
+com.google.android.videos
+com.google.android.apps.magazines
+com.google.android.apps.youtube.music.setupwizard

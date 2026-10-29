@@ -1,0 +1,10 @@
+screenless — third-party software
+
+This repository contains only original scripts and documentation (MIT, see LICENSE).
+It does not bundle third-party binaries. At install time it downloads or uses:
+
+- scrcpy, by Genymobile — Apache License 2.0 — https://github.com/Genymobile/scrcpy
+  (screen mirroring and control; includes adb on Windows)
+- Android Debug Bridge (adb), Android SDK Platform-Tools, by Google — Apache License 2.0
+- Anthropic Python SDK (agent/ only) — MIT — https://github.com/anthropics/anthropic-sdk-python
+- Pillow (agent/ only) — MIT-CMU — https://github.com/python-pillow/Pillow
