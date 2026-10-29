@@ -59,8 +59,12 @@ if ($usb) {
   }
 
   # Wireless mode turns off on every phone restart; re-arm it while we're plugged in
+  # (adbd restarts after tcpip, so wait until the phone is back on USB)
   adb -s $usb.Serial tcpip $Port | Out-Null
-  adb -s $usb.Serial wait-for-usb-device
+  for ($i = 0; $i -lt 20; $i++) {
+    Start-Sleep -Milliseconds 500
+    if ((adb -s $usb.Serial get-state 2>$null) -eq 'device') { break }
+  }
   adb -s $usb.Serial shell svc power stayon true
   adb -s $usb.Serial shell input keyevent KEYCODE_WAKEUP
 

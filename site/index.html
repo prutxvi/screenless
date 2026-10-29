@@ -56,6 +56,10 @@
   .key { display: flex; justify-content: space-between; gap: 12px; padding: 12px 14px; border: 1px solid var(--line); background: var(--card); font-size: 14px; }
   .key kbd { font: 700 13px "Space Mono", monospace; color: var(--red); }
 
+  figure.hero { margin: 40px 0 0; }
+  figure.hero img { width: 100%; height: auto; display: block; border: 1px solid var(--line); }
+  figure.hero figcaption { color: var(--muted); font-size: 13px; margin-top: 10px; font-family: "Space Mono", monospace; }
+  img.shot { width: 240px; max-width: 100%; height: auto; display: block; margin-top: 14px; border: 1px solid var(--line); border-radius: 18px; }
   .note { border-left: 3px solid var(--red); background: #120606; padding: 16px 18px; color: #e3e3e3; font-size: 15px; }
   footer { padding: 40px 0 64px; color: var(--muted); font-size: 14px; }
   footer a { color: var(--muted); }
@@ -73,6 +77,10 @@
       <a class="btn" href="https://github.com/prutxvi/screenless/archive/refs/heads/main.zip">Download ZIP</a>
     </div>
     <div class="dots" id="dots" aria-hidden="true"></div>
+    <figure class="hero">
+      <img src="media/hero.jpg" alt="A moto g30's Developer options screen mirrored in a window on a Mac desktop" loading="eager">
+      <figcaption>A real moto g30 with a broken display, mirrored and controlled from a laptop.</figcaption>
+    </figure>
   </div>
 </header>
 
@@ -94,7 +102,8 @@
   <div class="wrap">
     <h2>Set up on Windows</h2>
     <ol class="steps">
-      <li><div><b>Turn on USB debugging</b><p>Settings → About phone → tap Build number 7×. Then Developer options → USB debugging ON.</p></div></li>
+      <li><div><b>Turn on USB debugging</b><p>Settings → About phone → tap Build number 7×. Then Developer options → <b>USB debugging</b> ON and <b>Disable ADB authorisation timeout</b> ON.</p>
+<img class="shot" src="media/usb-debugging.png" alt="Developer options with USB debugging and Disable ADB authorisation timeout switched on" loading="lazy"></div></li>
       <li><div><b>Get the project and install</b><p>Installs scrcpy and puts a “Phone” shortcut on your Desktop.</p>
 <pre>git clone https://github.com/prutxvi/screenless C:\screenless
 cd C:\screenless\windows

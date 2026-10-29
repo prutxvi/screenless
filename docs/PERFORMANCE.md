@@ -22,6 +22,13 @@ Measured on a **Motorola moto g30** (Snapdragon 662, 4 GB RAM, Android 12, 720×
 | Wi-Fi profile: 3 Mbps, 1024 px | Fewer dropped frames on weak Wi-Fi | Edit `phone.ps1` |
 | Keep the phone awake | The mirror doesn't go black on Wi-Fi | `tune -Undo` |
 
+<p align="center">
+  <img src="media/developer-options.png" alt="Developer options showing average memory use of 3.0 GB of 3.9 GB" width="260">
+  &nbsp;
+  <img src="media/animation-scale.png" alt="Window, transition and animator duration scales all set to 0.5x" width="260">
+</p>
+<p align="center"><sub>Left: the phone reports 3.0 GB of 3.9 GB RAM in use on average. Right: animation scales at 0.5× after <code>tune</code>.</sub></p>
+
 ## What we tried that doesn't work
 
 - **Wi-Fi low-latency and high-performance modes** (`cmd wifi force-low-latency-mode`) are blocked without root (`SecurityException`).

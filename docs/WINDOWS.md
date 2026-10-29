@@ -16,6 +16,9 @@ Do this once. If the phone's screen is broken, use a USB-C OTG adapter with a mo
    - **Disable adb authorization timeout** → ON (otherwise trust expires after 7 days)
    - **Default USB configuration** → **File transfer**
 
+<p align="center"><img src="media/usb-debugging.png" alt="Developer options with USB debugging and Disable ADB authorisation timeout switched on" width="300"></p>
+<p align="center"><sub>What it should look like: <b>USB debugging</b> and <b>Disable ADB authorisation timeout</b> both on.</sub></p>
+
 > [!NOTE]
 > On Xiaomi/Redmi/POCO also turn on **USB debugging (Security settings)**. On Samsung, Build number is under **About phone → Software information**.
 

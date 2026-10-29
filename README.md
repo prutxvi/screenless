@@ -14,6 +14,10 @@ See it in a window, control it with your mouse and keyboard, over USB or Wi-Fi. 
 
 **[Windows guide →](docs/WINDOWS.md)** &nbsp;·&nbsp; [Website](https://screenless-psi.vercel.app) &nbsp;·&nbsp; [macOS guide](docs/MACOS.md) &nbsp;·&nbsp; [Troubleshooting](docs/TROUBLESHOOTING.md)
 
+<img src="docs/media/hero.jpg" alt="A moto g30's Developer options screen mirrored in a window on a Mac desktop, controlled with the mouse" width="100%">
+
+<sub>A real moto g30 with a broken display, mirrored and controlled on a Mac. Settings shown: USB debugging and "Disable ADB authorisation timeout", both on.</sub>
+
 </div>
 
 > Built by **[prutxvi](https://github.com/prutxvi)** with **Claude** (Anthropic's AI). My moto g30's display died but the phone still worked. I set the direction and made the calls; Claude did the diagnosis, measurements, scripts and docs.
