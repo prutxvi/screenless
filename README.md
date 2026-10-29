@@ -22,6 +22,25 @@ See it in a window, control it with your mouse and keyboard, over USB or Wi-Fi. 
 
 > Built by **[prutxvi](https://github.com/prutxvi)** with **Claude** (Anthropic's AI). My moto g30's display died but the phone still worked. I set the direction and made the calls; Claude did the diagnosis, measurements, scripts and docs.
 
+## See it in action
+
+<table>
+<tr>
+<td width="38%" align="center"><img src="docs/media/demo.gif" alt="The phone being driven from the laptop: Settings, then Chrome opens the screenless site and scrolls" width="100%"></td>
+<td>
+
+**Everything here is driven from the laptop.** The phone's own display is off.
+
+1. Starts in **Settings**
+2. Opens **Chrome** to this project's website
+3. Scrolls through it
+
+Recorded straight from the phone with `scrcpy --record`, on the moto g30 this project was built for.
+
+</td>
+</tr>
+</table>
+
 ## Contents
 - [Features](#features)
 - [Quick start (Windows)](#quick-start-windows)
