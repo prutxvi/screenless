@@ -12,7 +12,7 @@ See it in a window, control it with your mouse and keyboard, over USB or Wi-Fi. 
 ![No root](https://img.shields.io/badge/root-not%20needed-ffffff?style=flat-square&labelColor=000)
 ![Powered by scrcpy](https://img.shields.io/badge/powered%20by-scrcpy-ffffff?style=flat-square&labelColor=000)
 
-**[Windows guide →](docs/WINDOWS.md)** &nbsp;·&nbsp; [macOS guide](docs/MACOS.md) &nbsp;·&nbsp; [Troubleshooting](docs/TROUBLESHOOTING.md)
+**[Windows guide →](docs/WINDOWS.md)** &nbsp;·&nbsp; [Website](https://screenless-psi.vercel.app) &nbsp;·&nbsp; [macOS guide](docs/MACOS.md) &nbsp;·&nbsp; [Troubleshooting](docs/TROUBLESHOOTING.md)
 
 </div>
 
@@ -107,6 +107,7 @@ macos/
 debloat/
   motorola.txt    Safe-to-disable package list (tested on moto g30)
 agent/            Experimental: Claude drives the phone over adb
+site/             Landing page (Vercel)
 docs/             WINDOWS · MACOS · WIRELESS · PERFORMANCE · TROUBLESHOOTING
 AGENTS.md         Setup runbook for AI coding agents
 ```
