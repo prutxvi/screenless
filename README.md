@@ -44,6 +44,7 @@ Recorded straight from the phone with `scrcpy --record`, on the moto g30 this pr
 ## Contents
 - [Features](#features)
 - [Quick start (Windows)](#quick-start-windows)
+- [Mac app](#mac-app)
 - [Results](#results)
 - [How it works](#how-it-works)
 - [Repository layout](#repository-layout)
@@ -55,12 +56,14 @@ Recorded straight from the phone with `scrcpy --record`, on the moto g30 this pr
 
 | | What you get |
 |---|---|
-| **One-click launcher** | Double-click **Phone** on the Desktop. It uses USB if the cable is in, otherwise Wi-Fi, picks the right quality for each, and remembers the phone's IP. |
+| **One-click launcher** | Double-click **Phone** on the Desktop. It uses USB if the cable is in, otherwise Wi-Fi, picks the right quality for each, remembers every phone's Wi-Fi addresses (with history), finds them again via mDNS, and auto-reconnects if the mirror drops. |
 | **Works without the phone's screen** | Mouse, keyboard, clipboard and pattern unlock all work from the laptop. The phone's own display stays off, saving battery and the damaged panel. |
-| **Wireless** | Run it once over USB and it switches the phone into wireless mode, so after that you need no cable. Quality drops automatically on weak Wi-Fi so frames keep arriving. |
+| **Wireless** | Run it once over USB and it switches the phone into wireless mode, so after that you need no cable. Quality drops automatically on weak Wi-Fi so frames keep arriving, and a dropped session reconnects on its own. |
 | **Move between laptops** | Copy the phone's trusted key to a friend's laptop and the phone accepts it straight away, with no "Allow?" prompt on a screen you can't see. |
+| **Native Mac app** | A real macOS window app (menu of device cards, per-phone Mirror/Stop, pairing wizard, snapshot). Features: reconnects by itself if Wi-Fi blips. Build it with `app/macos/build.sh --install`. [Details →](#mac-app) |
 | **Speed tuning** | `tune` speeds up animations, keeps the phone awake and disables bloatware. Every change is reversible. |
 | **AI setup** | [AGENTS.md](AGENTS.md) is a runbook that OpenCode, Claude Code or Codex can follow to set up a new laptop end to end. |
+| **Guided Wi-Fi pairing** *(Android 11+)* | New laptop? Run the pair wizard once (macOS `macos/pair.sh`, Windows `windows\pair.ps1`) and it pairs with the phone's on-screen code, connects and saves the phone — no USB needed. A phone with a fully dead screen still needs the USB route: there's no cold wireless pairing without Android authorization. |
 | **Phone agent** *(experimental)* | Claude uses the phone for you: *"open YouTube and search lofi"*. Anything that sends, pays or deletes waits for your approval. [agent/](agent/) |
 
 ## Quick start (Windows)
@@ -79,6 +82,23 @@ Full walkthrough, every setting explained: **[docs/WINDOWS.md](docs/WINDOWS.md)*
 
 > [!TIP]
 > Phone restarted and Wi-Fi stopped working? That's Android turning wireless mode off. Plug in, start **Phone** once, unplug. [Why, and how to automate it](docs/WIRELESS.md).
+
+## Mac app
+
+A native macOS app (Swift/AppKit, no Electron, no dependencies beyond Xcode Command Line Tools) on top of the same engine as `macos/phone.sh`.
+
+- **Device cards:** every phone adb can see, over USB or Wi-Fi, with its model and address; refreshes every 3 seconds
+- **One-click Mirror** per phone, plus **Stop**; the status pill shows Ready / Mirroring / No phone
+- **Auto-reconnect:** if Wi-Fi blips, the launcher's watchdog brings the mirror back (3 retries)
+- **Pair wizard…** opens the guided Wi-Fi pairing (`macos/pair.sh`, Android 11+) in Terminal
+- **Saved devices** opens the per-phone records (`~/.config/screenless/devices/`), and **Snapshot** saves a screenshot
+
+```bash
+cd screenless/app/macos
+./build.sh --install     # builds, ad-hoc signs and installs to /Applications
+```
+
+Verified on the moto g30: the app found the phone over Wi-Fi and mirrored it with no cable.
 
 ## Results
 
@@ -104,7 +124,7 @@ flowchart LR
     S --> E
   end
   subgraph Laptop["Windows / macOS laptop"]
-    L["phone.bat / phone.sh<br/>USB or Wi-Fi, saved IP"]
+    L["phone.bat / phone.sh<br/>USB or Wi-Fi, saved IPs"]
     C["scrcpy client<br/>decode + window + input"]
     L --> C
   end
@@ -121,12 +141,16 @@ flowchart LR
 
 ```
 windows/
-  install.ps1     One-time setup: scrcpy via winget, optional trusted key, Desktop shortcut
-  phone.ps1       Launcher: USB or Wi-Fi, saved IP, tuned quality
+  install.ps1     One-time setup: scrcpy via winget (or direct GitHub download without winget), optional trusted key, Desktop shortcut
+  phone.ps1       Launcher: USB or Wi-Fi, per-device records, reconnect watchdog
+  pair.ps1        Guided wireless pairing (Android 11+, screen of the phone usable)
   phone.bat       Double-click wrapper for phone.ps1
   tune.ps1        Animations, stay awake, optional debloat (all reversible)
 macos/
   phone.sh        Same launcher for macOS
+  pair.sh         Same pairing wizard for macOS
+app/
+  macos/          Native macOS app (Swift/AppKit, no dependencies): build with build.sh
 debloat/
   motorola.txt    Safe-to-disable package list (tested on moto g30)
 agent/            Experimental: Claude drives the phone over adb

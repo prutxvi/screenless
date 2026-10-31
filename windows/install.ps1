@@ -16,13 +16,37 @@ function Fail($msg) { Write-Host "[screenless] $msg" -ForegroundColor Red; exit 
 # 1. scrcpy (bundles adb)
 if (Get-Command scrcpy -ErrorAction SilentlyContinue) {
   Info "scrcpy already installed: $((scrcpy --version | Select-Object -First 1))"
-} else {
-  if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
-    Fail 'winget not found. Download scrcpy-win64 from https://github.com/Genymobile/scrcpy/releases, extract it, and add the folder to PATH.'
-  }
+} elseif (Get-Command winget -ErrorAction SilentlyContinue) {
   Info 'Installing scrcpy via winget ...'
   winget install --exact --id Genymobile.scrcpy --accept-source-agreements --accept-package-agreements
   $env:Path = [Environment]::GetEnvironmentVariable('Path', 'Machine') + ';' + [Environment]::GetEnvironmentVariable('Path', 'User')
+} else {
+  # Fall back: no winget (older Win10/LTSC often lacks it) — download the official
+  # Genymobile release zip directly and put it on the user PATH.
+  $zipDir = Join-Path $env:LOCALAPPDATA 'Programs\screenless\scrcpy'
+  Info 'winget not found. Downloading the official scrcpy release from GitHub ...'
+  try {
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    $release = Invoke-RestMethod 'https://api.github.com/repos/Genymobile/scrcpy/releases/latest'
+    $asset = $release.assets | Where-Object { $_.name -match '^scrcpy-win64-.*\.zip$' } | Select-Object -First 1
+    if (-not $asset) { throw 'No win64 zip asset in the latest release' }
+    $destZip = Join-Path $env:TEMP $asset.name
+    Info "Downloading $($asset.name) ($([math]::Round($asset.size / 1MB)) MB) ..."
+    Invoke-WebRequest $asset.browser_download_url -OutFile $destZip -UseBasicParsing
+    if (Test-Path $zipDir) { Remove-Item $zipDir -Recurse -Force }
+    Expand-Archive $destZip -DestinationPath $zipDir -Force
+    Remove-Item $destZip -ErrorAction SilentlyContinue
+
+    # put the extracted folder (binaries live in its root) on the user PATH
+    $userPath = [Environment]::GetEnvironmentVariable('Path', 'User')
+    if ($userPath -notlike "*$zipDir*") {
+      [Environment]::SetEnvironmentVariable('Path', "$zipDir;$userPath", 'User')
+    }
+    $env:Path = "$zipDir;$env:Path"
+    Info "scrcpy installed to $zipDir and added to your PATH."
+  } catch {
+    Fail "Could not download scrcpy automatically ($($_.Exception.Message)). Download scrcpy-win64 from https://github.com/Genymobile/scrcpy/releases, extract it, and add the folder to PATH."
+  }
 }
 
 # 2. Optional trusted key

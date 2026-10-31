@@ -2,7 +2,7 @@
 
 ## How it works
 
-Over USB, the launcher runs `adb tcpip 5555`, which tells the phone to also accept adb connections over Wi-Fi on port 5555, and saves the phone's IP address. Later, with no cable, it runs `adb connect <ip>:5555`.
+Over USB, the launcher runs `adb tcpip 5555`, which tells the phone to also accept adb connections over Wi-Fi on port 5555, and saves the phone's current IP into a per-device record (`devices/<serial>.conf`, up to a 5-IP history per phone). Later, with no cable, it tries every remembered address, then asks adb's mDNS to discover phones advertising wireless debugging on the network (Android 11+, already paired), and connects to the first that answers. If the mirror drops mid-session, the launcher drops the stale adb transport and reconnects automatically (three attempts).
 
 The phone only accepts computers whose adb key it already trusts, so other devices on the network can't connect.
 
@@ -13,7 +13,7 @@ Android turns wireless adb **off on every restart**, and an app can't turn it ba
 | Way back | Effort | Needs the phone's screen |
 |---|---|---|
 | **Plug in USB, run Phone, unplug** | 10 seconds | No |
-| **Developer options → Wireless debugging** (Android 11+) → *Pair device with pairing code*, then `adb pair <ip:port> <code>` and `adb connect <ip:port>` | 1 minute | Yes |
+| **Developer options → Wireless debugging** (Android 11+) → *Pair device with pairing code*, then run the **pair wizard**: `macos/pair.sh` (macOS) or `windows\pair.ps1` (Windows). It waits for the announcement, pairs with the code you type, connects, and saves the phone | 1 minute | Yes (to read the code) |
 | **Automate it at boot** (below) | One-time setup | Only for setup |
 
 ## Automate it at boot (Android 11+, experimental)
