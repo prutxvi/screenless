@@ -85,20 +85,20 @@ Full walkthrough, every setting explained: **[docs/WINDOWS.md](docs/WINDOWS.md)*
 
 ## Mac app
 
-A native macOS app (Swift/AppKit, no Electron, no dependencies beyond Xcode Command Line Tools) on top of the same engine as `macos/phone.sh`.
+Typing a command every time got old, so it became an app. It's a small native Mac app (Swift, 308 KB, no Electron) sitting on the same engine as `macos/phone.sh`. Your phone shows up as a card; click **Mirror** and it's on your screen.
 
-- **Device cards:** every phone adb can see, over USB or Wi-Fi, with its model and address; refreshes every 3 seconds
-- **One-click Mirror** per phone, plus **Stop**; the status pill shows Ready / Mirroring / No phone
-- **Auto-reconnect:** if Wi-Fi blips, the launcher's watchdog brings the mirror back (3 retries)
-- **Pair wizard…** opens the guided Wi-Fi pairing (`macos/pair.sh`, Android 11+) in Terminal
-- **Saved devices** opens the per-phone records (`~/.config/screenless/devices/`), and **Snapshot** saves a screenshot
+<p align="center"><img src="docs/media/mac-app-demo.gif" alt="The screenless Mac app next to the mirrored moto g30: Settings, then the screenless website in Chrome, then the calculator, all driven from the Mac" width="100%"></p>
+<p align="center"><sub>Recorded 31 Oct 2026. The moto g30 is on a phone hotspot, nothing is plugged in, and its own screen is off. Settings → the project site in Chrome → calculator (2026 × 12 = 24,312), all from the Mac. <a href="docs/media/mac-app-demo.mp4">MP4 version</a>.</sub></p>
+
+- **A card per phone** it can see, over USB or Wi-Fi, with its address; refreshes every 3 seconds
+- **Mirror** and **Stop**, plus a status light (Ready, Mirroring, No phone)
+- **Reconnects on its own** if the Wi-Fi drops mid-session (3 tries)
+- **Pair wizard** for Android 11+ phones (opens `macos/pair.sh` in Terminal), **Saved devices**, and **Snapshot**
 
 ```bash
 cd screenless/app/macos
 ./build.sh --install     # builds, ad-hoc signs and installs to /Applications
 ```
-
-Verified on the moto g30: the app found the phone over Wi-Fi and mirrored it with no cable.
 
 ## Results
 

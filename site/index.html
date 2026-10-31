@@ -109,7 +109,34 @@
       <div class="card"><h3>Wireless</h3><p>Run once over USB and it switches the phone into wireless mode. After that, no cable.</p></div>
       <div class="card"><h3>Any laptop</h3><p>Copy the phone's trusted key to a friend's laptop and it connects with no "Allow?" prompt.</p></div>
       <div class="card"><h3>Faster phone</h3><p>Reversible tuning: quicker animations, stay-awake, bloatware off. +210 MB free RAM on a moto g30.</p></div>
+      <div class="card"><h3>A real Mac app</h3><p>Your phone as a card, one click to mirror, reconnects by itself. Native Swift, 308&nbsp;KB.</p></div>
       <div class="card"><h3>AI setup</h3><p>Open OpenCode or Claude Code in the folder and say “connect my phone”. It follows <span class="mono">AGENTS.md</span>.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="mac-app">
+  <div class="wrap">
+    <h2>The Mac app</h2>
+    <p class="big" style="max-width:680px">Typing a command every time got old, so it became an app.</p>
+    <p style="max-width:680px;color:#b5b5b5">It's a small native Mac app, 308&nbsp;KB, written in Swift. Your phone shows up as a card. Click <b>Mirror</b> and it's on your screen, over Wi-Fi or USB. If the Wi-Fi drops for a second, it reconnects on its own. Everything in the clip below runs from the Mac, with the phone's own screen off and no cable plugged in.</p>
+    <figure class="hero" style="margin-top:28px">
+      <video src="media/mac-app-demo.mp4" autoplay muted loop playsinline poster="media/mac-app.jpg" aria-label="The screenless Mac app next to the mirrored moto g30: Settings, then the screenless website in Chrome, then the calculator, all driven from the Mac" style="width:100%;display:block;border:1px solid var(--line)"></video>
+      <figcaption>Recorded on a Mac, 31 Oct 2026. Settings → this website in Chrome → calculator (2026 × 12 = 24,312). The moto g30 is on a phone hotspot; nothing is plugged in.</figcaption>
+    </figure>
+    <div class="demo" style="margin-top:32px;grid-template-columns:minmax(0,420px) 1fr">
+      <img class="shot" style="width:100%;max-width:420px;border-radius:12px" src="media/app-mac-mirroring.png" alt="The screenless Mac app: a card for the moto g(30) reading Wi-Fi, ready to mirror, with Mirror, Stop, Snapshot, Pair wizard and Saved devices buttons" loading="lazy">
+      <div>
+        <p style="color:#b5b5b5;margin-bottom:10px">What's in it:</p>
+        <ul style="color:#b5b5b5;padding-left:18px;margin:0 0 16px">
+          <li>A card for every phone it can see, with its address</li>
+          <li>Mirror and Stop, plus a status light</li>
+          <li>A pairing wizard for Android 11+ phones</li>
+          <li>Snapshot, for a quick screenshot of the phone</li>
+        </ul>
+<pre style="margin:0">cd screenless/app/macos
+./build.sh --install</pre>
+      </div>
     </div>
   </div>
 </section>
